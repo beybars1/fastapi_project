@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+*.sublime-workspace
+*.sublime-project
+
+# FastAPI specific
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+.hypothesis/
+
+# Logs
+*.log
+logs/
+log/
+
+# Local development settings
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Database
+*.sqlite3
+*.db
+
+# Temporary files
+tmp/
+temp/
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Distribution
+dist/
+build/
+
+# Misc
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*~
