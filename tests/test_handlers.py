@@ -3,13 +3,14 @@ import json
 
 async def test_create_user(client, get_user_from_database):
     new_user = {
-        "name": "John",
+        "name": "Johnggg",
         "surname": "Doe",
-        "email": "test@gmail.com"
+        "email": "test@gmail.com",
+        "password": "string"
         }
     response = client.post("/user/", data=json.dumps(new_user))
     data_from_response = response.json()
-    
+    print(data_from_response)
     assert response.status_code == 200
     assert data_from_response["name"] == new_user["name"]
     assert data_from_response["surname"] == new_user["surname"]
