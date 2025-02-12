@@ -1,8 +1,8 @@
-"""comment
+"""fresh_test_migration
 
-Revision ID: 4dc7c1394549
+Revision ID: edf1060919a2
 Revises: 
-Create Date: 2025-02-12 14:17:36.941718
+Create Date: 2025-02-12 23:03:03.033547
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '4dc7c1394549'
+revision = 'edf1060919a2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,6 +24,8 @@ def upgrade() -> None:
     sa.Column('surname', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=True),
+    sa.Column('hashed_password', sa.String(), nullable=False),
+    sa.Column('roles', postgresql.ARRAY(sa.String()), nullable=False),
     sa.PrimaryKeyConstraint('user_id'),
     sa.UniqueConstraint('email')
     )
