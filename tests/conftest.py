@@ -17,13 +17,11 @@ from db.session import get_db
 from main import app
 from security import create_access_token
 
-#from security import create_access_token
+CLEAN_TABLES = [
+    "users",
+]
 
-engine_test = create_async_engine(settings.REAL_DATABASE_URL, future=True, echo=True)
-async_session_test = sessionmaker(engine_test, expire_on_commit=False, class_=AsyncSession)
 
-CLEAN_TABLES = ["users"]
-        
 @pytest.fixture(scope="session")
 def event_loop():
     loop = asyncio.get_event_loop_policy().new_event_loop()
@@ -53,12 +51,14 @@ async def clean_tables(async_session_test):
             for table_for_cleaning in CLEAN_TABLES:
                 await session.execute(f"""TRUNCATE TABLE {table_for_cleaning};""")
 
+
 async def _get_test_db():
     try:
         # create async engine for interaction with database
         test_engine = create_async_engine(
             settings.TEST_DATABASE_URL, future=True, echo=True
         )
+
         # create session for the interaction with database
         test_async_session = sessionmaker(
             test_engine, expire_on_commit=False, class_=AsyncSession
@@ -66,13 +66,15 @@ async def _get_test_db():
         yield test_async_session()
     finally:
         pass
-    
+
+
 @pytest.fixture(scope="function")
 async def client() -> Generator[TestClient, Any, None]:
     """
     Create a new FastAPI TestClient that uses the `db_session` fixture to override
     the `get_db` dependency that is injected into routes.
     """
+
     app.dependency_overrides[get_db] = _get_test_db
     with TestClient(app) as client:
         yield client
@@ -80,7 +82,9 @@ async def client() -> Generator[TestClient, Any, None]:
 
 @pytest.fixture(scope="session")
 async def asyncpg_pool():
-    pool = await asyncpg.create_pool("".join(settings.TEST_DATABASE_URL.split("+asyncpg")))
+    pool = await asyncpg.create_pool(
+        "".join(settings.TEST_DATABASE_URL.split("+asyncpg"))
+    )
     yield pool
     pool.close()
 

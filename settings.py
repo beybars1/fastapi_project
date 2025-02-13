@@ -15,7 +15,7 @@ TEST_DATABASE_URL = env.str(
 )  # connect string for the test database
 
 
-#APP_PORT = env.int("APP_PORT")
+# APP_PORT = env.int("APP_PORT")
 
 # SECRET_KEY: str = env.str("SECRET_KEY", default="secret_key")
 # ALGORITHM: str = env.str("ALGORITHM", default="HS256")
