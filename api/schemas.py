@@ -4,8 +4,8 @@ from typing import Optional
 
 from fastapi import HTTPException
 from pydantic import BaseModel
-from pydantic import constr
 from pydantic import EmailStr
+from pydantic import Field
 from pydantic import validator
 
 #########################
@@ -62,9 +62,9 @@ class UpdatedUserResponse(BaseModel):
 
 
 class UpdateUserRequest(BaseModel):
-    name: Optional[constr(min_length=1)]
-    surname: Optional[constr(min_length=1)]
-    email: Optional[EmailStr]
+    name: Optional[str] = Field(None, min_length=1)
+    surname: Optional[str] = Field(None, min_length=1)
+    email: Optional[EmailStr] = None
 
     @validator("name")
     def validate_name(cls, value):
