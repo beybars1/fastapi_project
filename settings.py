@@ -9,11 +9,10 @@ REAL_DATABASE_URL = env.str(
 )  # connect string for the real database
 APP_PORT = env.int("APP_PORT")
 
-
 SECRET_KEY: str = env.str("SECRET_KEY", default="secret_key")
 ALGORITHM: str = env.str("ALGORITHM", default="HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES: int = env.int("ACCESS_TOKEN_EXPIRE_MINUTES", default=30)
-SENTRY_URL: str = env.str("SENTRY_URL")
+SENTRY_URL: str = env.str("SENTRY_URL", default=None)
 
 TEST_DATABASE_URL = env.str(
     "TEST_DATABASE_URL",
