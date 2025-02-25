@@ -1,16 +1,22 @@
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
+ARG BASE_IMAGE=python:3.9-slim-buster
+FROM $BASE_IMAGE
 
-up:
-	docker compose -f docker-compose-local.yaml up -d
+# system update & package install
+RUN apt-get -y update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    postgresql-client \
+    openssl libssl-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-down:
-	docker compose -f docker-compose-local.yaml down --remove-orphans
+COPY . .
+WORKDIR .
 
-up_ci:
-	docker compose -f docker-compose-ci.yaml up -d
+# pip & requirements
+RUN python3 -m pip install --user --upgrade pip && \
+    python3 -m pip install -r requirements.txt
 
-up_ci_rebuild:
-	docker compose -f docker-compose-ci.yaml up --build -d
-
-down_ci:
-	docker compose -f docker-compose-ci.yaml down --remove-orphans
+# Execute
+CMD ["python", "main.py"]
